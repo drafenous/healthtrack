@@ -1,0 +1,89 @@
+html, body {
+    min-height: 100% !important;
+    height: 100%;
+}
+
+#header {
+    width: 100%;
+    line-height: 64px;
+    background-color: #2c3e50;
+    color: #ffffff;
+    position: fixed;
+    z-index: 1000;
+}
+
+#header i{
+    font-size: 1.5em;
+}
+
+#footer{
+    line-height: 64px;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    z-index: 999;
+    border-top: #2c3e50 1px solid;
+    background-color: #ffffff;
+}
+
+#footer .active{
+    background-color: #2c3e50;
+}
+
+#footer i{
+    font-size: 1.5em;
+}
+#footer div a i {
+    color: #2c3e50;
+}
+#footer div.active a i{
+    color: #ffffff !important;
+}
+
+#app-content{
+    min-height: 100% !important;
+    max-height: auto;
+    padding-top: 64px;
+    padding-bottom: 82px;
+    background-color: #ecf0f1;
+}
+
+/* cards */
+.card{
+    border-radius: 0px;
+}
+
+.card.maded{
+    background-color: #1abc9c;
+    color: white;
+}
+
+/* buttons */
+.btn{
+    border-radius: 0;
+    border: 0px;
+}
+
+.btn-primary{
+    background-color: #2c3e50;
+}
+
+.btn-secondary{
+    background-color: #8e44ad;
+}
+
+.btn-success{
+    background-color: #16a085;
+}
+
+.btn-danger{
+    background-color: #c0392b;
+}
+
+.btn-warning{
+    background-color: #f39c12;
+}
+
+.btn-info{
+    background-color: #2980b9;
+}
