@@ -48,6 +48,11 @@ html, body {
     background-color: #ecf0f1;
 }
 
+.afterHour{
+    font-weight: bolder;
+    color: #c0392b;
+}
+
 /* cards */
 .card{
     border-radius: 0px;

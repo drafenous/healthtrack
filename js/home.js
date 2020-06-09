@@ -1,10 +1,12 @@
+const weekdays = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
+
 $(document).ready(async function(){
     // localStorage.removeItem('daily')
     if(!localStorage.getItem('daily')){
         const data = [
-            {id: 0, type: 'logs', name: 'Peso', icon: 'weight', weekdays: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'], hour: ['07:30'], made: false},
-            {id: 1, type: 'sports', name: 'Corrida', icon: 'dumbbell', weekdays: ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'], hour: ['08:00', '10:00'], made: false},
-            {id: 2, type: 'logs', name: 'Pressão arterial', icon: 'heart', weekdays: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'], hour: ['12:30'], made: false},
+            {id: 0, type: 'logs', name: 'Peso', icon: 'weight', weekdays: [1, 1, 1, 1, 1, 1, 1], hour: ['07:30'], made: false},
+            {id: 1, type: 'sports', name: 'Corrida', icon: 'dumbbell', weekdays: [0,1, 1, 1, 1, 1, 0], hour: ['08:00', '10:00'], made: false},
+            {id: 2, type: 'logs', name: 'Pressão arterial', icon: 'heart', weekdays: [1, 1, 1, 1, 1, 1, 1], hour: ['12:30'], made: false},
         ]
         const parsed = JSON.stringify(data)
         localStorage.setItem('daily', parsed);
@@ -20,22 +22,29 @@ function loadData(today = null){
 
     $('#dailyActivities').html('');
     today.map(data => {
-        const html = htmlDaily(data);
-        $('#dailyActivities').append(html)
+        const dow = moment().isoWeekday()
+        if(data.weekdays[dow] == 1){
+            const html = htmlDaily(data);
+            $('#dailyActivities').append(html)
+        }
     })
 
-    $('.made').unbind('click').on('click', event => {
+    $('.made').unbind('click').on('click', async event => {
         const btn = event.target;
-        setAsMade(btn);
+        btn.setAttribute('disabled', true)
+        await setAsMade(btn);
+        btn.removeAttribute('disabled')
     })
 
-    $('.cancel').unbind('click').on('click', event => {
+    $('.cancel').unbind('click').on('click', async event => {
         const btn = event.target;
-        cancelActivitie(btn);
+        btn.setAttribute('disabled', true)
+        await cancelActivitie(btn);
+        btn.removeAttribute('disabled')
     })
 }
 
-function setAsMade(element){
+async function setAsMade(element){
     const id = Number(element.closest('.card').getAttribute('activity-id'))
         
     let ls = JSON.parse(localStorage.getItem('daily'))
@@ -46,17 +55,29 @@ function setAsMade(element){
     })
     const parsed = JSON.stringify(ls)
     localStorage.setItem('daily', parsed)
-    loadData(ls);
+    await loadData(ls);
 }
 
 function htmlDaily(data){
+    const week = data.weekdays.map((day, index) => {
+        if(day == 1){
+            return weekdays[index]
+        }
+    }).filter(day => {
+        if(day){
+            return day
+        }
+    })
+
+    const hourClass = checkHour(data);
+
     const html = `
     <div class="card mt-3 ${data.made ? 'maded' : ''}" activity-id=${data.id}>
         <div class="card-body">
             <h5 class="card-title"> <i class="fas fa-${data.icon} fa-fw"></i> ${data.type == 'sports' ? 'Exercício' : 'Registrar'}: ${data.name}</h5>
             <p class="card-text">
-                <strong>Dias da Semana:</strong> ${data.weekdays.length == 7 ? 'Todos' : data.weekdays.join(', ')}.<br />
-                <strong>Horário:</strong> ${data.hour.length == 2 ? data.hour[0] + ' até ' + data.hour[1] : data.hour[0]}
+                <strong>Dias da Semana:</strong> ${week.length == 7 ? 'Todos' : week.join(', ')}.<br />
+                <span class="${hourClass ? 'afterHour' : ''}"><strong>Horário:</strong> ${data.hour.length == 2 ? data.hour[0] + ' até ' + data.hour[1] : data.hour[0]}</span>
             </p>
             <div class="row">
                 <div class="col-6 text-left">
@@ -66,8 +87,15 @@ function htmlDaily(data){
             </div>
         </div>
     </div>
-    `
+    `;
     return html
+}
+
+function checkHour(data){
+    const hour = moment(data.hour.length == 2 ? data.hour[1] : data.hour[0], 'HH:mm');
+    const isAfter = moment().isAfter(hour, 'minute')
+    const validation = (isAfter == true && data.made == false)
+    return validation
 }
 
 function cancelActivitie(element){
