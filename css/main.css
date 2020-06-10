@@ -12,11 +12,11 @@ html, body {
     z-index: 1000;
 }
 
-#header i{
+#header i {
     font-size: 1.5em;
 }
 
-#footer{
+#footer {
     line-height: 64px;
     position: fixed;
     bottom: 0px;
@@ -26,21 +26,23 @@ html, body {
     background-color: #ffffff;
 }
 
-#footer .active{
+#footer .active {
     background-color: #2c3e50;
 }
 
-#footer i{
+#footer i {
     font-size: 1.5em;
 }
+
 #footer div a i {
     color: #2c3e50;
 }
-#footer div.active a i{
+
+#footer div.active a i {
     color: #ffffff !important;
 }
 
-#app-content{
+#app-content {
     min-height: 100% !important;
     max-height: auto;
     padding-top: 64px;
@@ -48,47 +50,72 @@ html, body {
     background-color: #ecf0f1;
 }
 
-.afterHour{
+.afterHour {
     font-weight: bolder;
     color: #c0392b;
 }
 
 /* cards */
-.card{
+
+.card {
     border-radius: 0px;
 }
 
-.card.maded{
+.card.maded {
     background-color: #1abc9c;
     color: white;
 }
 
 /* buttons */
-.btn{
+
+.btn {
     border-radius: 0;
     border: 0px;
 }
 
-.btn-primary{
+.btn-primary {
     background-color: #2c3e50;
 }
 
-.btn-secondary{
+.btn-secondary {
     background-color: #8e44ad;
 }
 
-.btn-success{
+.btn-success {
     background-color: #16a085;
 }
 
-.btn-danger{
+.btn-danger {
     background-color: #c0392b;
 }
 
-.btn-warning{
+.btn-warning {
     background-color: #f39c12;
 }
 
-.btn-info{
+.btn-info {
     background-color: #2980b9;
+}
+
+/* week days */
+
+.weekDays-selector input {
+    display: none!important;
+}
+
+.weekDays-selector input[type=checkbox]+label {
+    display: inline-block;
+    border-radius: 6px;
+    background: #dddddd;
+    height: 40px;
+    width: 30px;
+    margin-right: 3px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.weekDays-selector input[type=checkbox]:checked+label {
+    background: #2AD705;
+    color: #ffffff;
 }
