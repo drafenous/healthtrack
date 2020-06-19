@@ -1,7 +1,7 @@
 $(document).ready(function(){
     const currentUser = localStorage.getItem('loggedUser')
     if(!currentUser){
-        return window.location.href = '/login.html'
+        return window.location.href = 'login.html'
     }
 
     const firstName = JSON.parse(currentUser).fullName.split(' ')[0]
