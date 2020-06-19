@@ -39,7 +39,7 @@ $(document).ready(function () {
                 return alert('Usuário e senha não encontrados, se não tem um cadastro, efetue clicando no botão acima.')
             } else {
                 localStorage.setItem('loggedUser', JSON.stringify(found))
-                window.location.href = '/index.html';
+                window.location.href = 'index.html';
             }
         }else{
             return alert('Ainda não há cadastros no app, efetue o primeiro cadastro clicando no botão acima.')
