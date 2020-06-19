@@ -20,5 +20,5 @@ $(document).ready(function(){
 
 function exit(){
     localStorage.removeItem('loggedUser');
-    window.location.href = '/login.html'
+    window.location.href = 'login.html'
 }
